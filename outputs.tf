@@ -1,9 +1,9 @@
 output "dn" {
-  value       = aci_rest.fvTenant.id
-  description = "Distinguished name of `fvTenant` object."
+  value       = aci_rest.fabricPodPGrp.id
+  description = "Distinguished name of `fabricPodPGrp` object."
 }
 
 output "name" {
-  value       = aci_rest.fvTenant.content.name
-  description = "Tenant name."
+  value       = aci_rest.fabricPodPGrp.content.name
+  description = "Pod policy group name."
 }

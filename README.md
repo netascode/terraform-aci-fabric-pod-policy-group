@@ -1,23 +1,23 @@
 <!-- BEGIN_TF_DOCS -->
-[![Tests](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
+[![Tests](https://github.com/netascode/terraform-aci-fabric-pod-policy-group/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-fabric-pod-policy-group/actions/workflows/test.yml)
 
-# Terraform ACI Scaffolding Module
+# Terraform ACI Fabric Pod Policy Group Module
 
-Description
+Manages ACI Fabric Pod Policy Group
 
 Location in GUI:
-`Tenants` » `XXX`
+`Fabric` » `Fabric Policies` » `Pods` » `Policy Groups`
 
 ## Examples
 
 ```hcl
-module "aci_scaffolding" {
-  source  = "netascode/scaffolding/aci"
+module "aci_fabric_pod_policy_group" {
+  source  = "netascode/fabric-pod-policy-group/aci"
   version = ">= 0.0.1"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
-  description = "My Description"
+  name             = "POD1"
+  snmp_policy      = "SNMP1"
+  date_time_policy = "DATE1"
 }
 
 ```
@@ -39,20 +39,22 @@ module "aci_scaffolding" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Tenant name. | `string` | n/a | yes |
-| <a name="input_alias"></a> [alias](#input\_alias) | Tenant alias. | `string` | `""` | no |
-| <a name="input_description"></a> [description](#input\_description) | Tenant description. | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | Pod policy group name. | `string` | n/a | yes |
+| <a name="input_snmp_policy"></a> [snmp\_policy](#input\_snmp\_policy) | SNMP policy name. | `string` | `""` | no |
+| <a name="input_date_time_policy"></a> [date\_time\_policy](#input\_date\_time\_policy) | Date time policy name. | `string` | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fvTenant` object. |
-| <a name="output_name"></a> [name](#output\_name) | Tenant name. |
+| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fabricPodPGrp` object. |
+| <a name="output_name"></a> [name](#output\_name) | Pod policy group name. |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_rest.fvTenant](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.fabricPodPGrp](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.fabricRsSnmpPol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.fabricRsTimePol](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 <!-- END_TF_DOCS -->

@@ -3,14 +3,14 @@ version: '>= 0.14.0'
 formatter: markdown table
 
 content: |-
-  [![Tests](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
+  [![Tests](https://github.com/netascode/terraform-aci-fabric-pod-policy-group/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-fabric-pod-policy-group/actions/workflows/test.yml)
 
-  # Terraform ACI Scaffolding Module
+  # Terraform ACI Fabric Pod Policy Group Module
 
-  Description
+  Manages ACI Fabric Pod Policy Group
 
   Location in GUI:
-  `Tenants` » `XXX`
+  `Fabric` » `Fabric Policies` » `Pods` » `Policy Groups`
 
   ## Examples
 

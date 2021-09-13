@@ -1,5 +1,5 @@
 variable "name" {
-  description = "Tenant name."
+  description = "Pod policy group name."
   type        = string
 
   validation {
@@ -8,24 +8,24 @@ variable "name" {
   }
 }
 
-variable "alias" {
-  description = "Tenant alias."
+variable "snmp_policy" {
+  description = "SNMP policy name."
   type        = string
   default     = ""
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.alias))
+    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.snmp_policy))
     error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
   }
 }
 
-variable "description" {
-  description = "Tenant description."
+variable "date_time_policy" {
+  description = "Date time policy name."
   type        = string
   default     = ""
 
   validation {
-    condition     = can(regex("^[a-zA-Z0-9\\!#$%()*,-./:;@ _{|}~?&+]{0,128}$", var.description))
-    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `\\`, `!`, `#`, `$`, `%`, `(`, `)`, `*`, `,`, `-`, `.`, `/`, `:`, `;`, `@`, ` `, `_`, `{`, `|`, }`, `~`, `?`, `&`, `+`. Maximum characters: 128."
+    condition     = can(regex("^[a-zA-Z0-9_.-]{0,64}$", var.date_time_policy))
+    error_message = "Allowed characters: `a`-`z`, `A`-`Z`, `0`-`9`, `_`, `.`, `-`. Maximum characters: 64."
   }
 }

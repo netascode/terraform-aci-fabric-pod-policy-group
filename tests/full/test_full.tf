@@ -14,35 +14,55 @@ terraform {
 module "main" {
   source = "../.."
 
-  name        = "ABC"
-  alias       = "ALIAS"
-  description = "DESCR"
+  name             = "POD1"
+  snmp_policy      = "SNMP1"
+  date_time_policy = "DATE1"
 }
 
-data "aci_rest" "fvTenant" {
-  dn = "uni/tn-ABC"
+data "aci_rest" "fabricPodPGrp" {
+  dn = "uni/fabric/funcprof/podpgrp-${module.main.name}"
 
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "fabricPodPGrp" {
+  component = "fabricPodPGrp"
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.fvTenant.content.name
-    want        = "ABC"
+    got         = data.aci_rest.fabricPodPGrp.content.name
+    want        = module.main.name
   }
+}
 
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest.fvTenant.content.nameAlias
-    want        = "ALIAS"
+data "aci_rest" "fabricRsSnmpPol" {
+  dn = "${data.aci_rest.fabricPodPGrp.id}/rssnmpPol"
+
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "fabricRsSnmpPol" {
+  component = "fabricRsSnmpPol"
+
+  equal "tnSnmpPolName" {
+    description = "tnSnmpPolName"
+    got         = data.aci_rest.fabricRsSnmpPol.content.tnSnmpPolName
+    want        = "SNMP1"
   }
+}
 
-  equal "descr" {
-    description = "descr"
-    got         = data.aci_rest.fvTenant.content.descr
-    want        = "DESCR"
+data "aci_rest" "fabricRsTimePol" {
+  dn = "${data.aci_rest.fabricPodPGrp.id}/rsTimePol"
+
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "fabricRsTimePol" {
+  component = "fabricRsTimePol"
+
+  equal "tnDatetimePolName" {
+    description = "tnDatetimePolName"
+    got         = data.aci_rest.fabricRsTimePol.content.tnDatetimePolName
+    want        = "DATE1"
   }
 }
