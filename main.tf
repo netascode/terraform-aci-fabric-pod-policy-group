@@ -1,4 +1,4 @@
-resource "aci_rest" "fabricPodPGrp" {
+resource "aci_rest_managed" "fabricPodPGrp" {
   dn         = "uni/fabric/funcprof/podpgrp-${var.name}"
   class_name = "fabricPodPGrp"
   content = {
@@ -6,16 +6,16 @@ resource "aci_rest" "fabricPodPGrp" {
   }
 }
 
-resource "aci_rest" "fabricRsSnmpPol" {
-  dn         = "${aci_rest.fabricPodPGrp.dn}/rssnmpPol"
+resource "aci_rest_managed" "fabricRsSnmpPol" {
+  dn         = "${aci_rest_managed.fabricPodPGrp.dn}/rssnmpPol"
   class_name = "fabricRsSnmpPol"
   content = {
     tnSnmpPolName = var.snmp_policy
   }
 }
 
-resource "aci_rest" "fabricRsTimePol" {
-  dn         = "${aci_rest.fabricPodPGrp.dn}/rsTimePol"
+resource "aci_rest_managed" "fabricRsTimePol" {
+  dn         = "${aci_rest_managed.fabricPodPGrp.dn}/rsTimePol"
   class_name = "fabricRsTimePol"
   content = {
     tnDatetimePolName = var.date_time_policy

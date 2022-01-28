@@ -5,8 +5,8 @@ terraform {
     }
 
     aci = {
-      source  = "netascode/aci"
-      version = ">=0.2.0"
+      source  = "CiscoDevNet/aci"
+      version = ">=2.0.0"
     }
   }
 }
@@ -19,7 +19,7 @@ module "main" {
   date_time_policy = "DATE1"
 }
 
-data "aci_rest" "fabricPodPGrp" {
+data "aci_rest_managed" "fabricPodPGrp" {
   dn = "uni/fabric/funcprof/podpgrp-${module.main.name}"
 
   depends_on = [module.main]
@@ -30,13 +30,13 @@ resource "test_assertions" "fabricPodPGrp" {
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.fabricPodPGrp.content.name
+    got         = data.aci_rest_managed.fabricPodPGrp.content.name
     want        = module.main.name
   }
 }
 
-data "aci_rest" "fabricRsSnmpPol" {
-  dn = "${data.aci_rest.fabricPodPGrp.id}/rssnmpPol"
+data "aci_rest_managed" "fabricRsSnmpPol" {
+  dn = "${data.aci_rest_managed.fabricPodPGrp.id}/rssnmpPol"
 
   depends_on = [module.main]
 }
@@ -46,13 +46,13 @@ resource "test_assertions" "fabricRsSnmpPol" {
 
   equal "tnSnmpPolName" {
     description = "tnSnmpPolName"
-    got         = data.aci_rest.fabricRsSnmpPol.content.tnSnmpPolName
+    got         = data.aci_rest_managed.fabricRsSnmpPol.content.tnSnmpPolName
     want        = "SNMP1"
   }
 }
 
-data "aci_rest" "fabricRsTimePol" {
-  dn = "${data.aci_rest.fabricPodPGrp.id}/rsTimePol"
+data "aci_rest_managed" "fabricRsTimePol" {
+  dn = "${data.aci_rest_managed.fabricPodPGrp.id}/rsTimePol"
 
   depends_on = [module.main]
 }
@@ -62,7 +62,7 @@ resource "test_assertions" "fabricRsTimePol" {
 
   equal "tnDatetimePolName" {
     description = "tnDatetimePolName"
-    got         = data.aci_rest.fabricRsTimePol.content.tnDatetimePolName
+    got         = data.aci_rest_managed.fabricRsTimePol.content.tnDatetimePolName
     want        = "DATE1"
   }
 }
