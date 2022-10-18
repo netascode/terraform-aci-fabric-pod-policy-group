@@ -21,3 +21,11 @@ resource "aci_rest_managed" "fabricRsTimePol" {
     tnDatetimePolName = var.date_time_policy
   }
 }
+
+resource "aci_rest_managed" "fabricRsCommPol" {
+  dn         = "${aci_rest_managed.fabricPodPGrp.dn}/rsCommPol"
+  class_name = "fabricRsCommPol"
+  content = {
+    tnCommPolName = var.management_access_policy
+  }
+}

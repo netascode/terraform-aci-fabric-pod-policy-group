@@ -13,11 +13,12 @@ Location in GUI:
 ```hcl
 module "aci_fabric_pod_policy_group" {
   source  = "netascode/fabric-pod-policy-group/aci"
-  version = ">= 0.1.0"
+  version = ">= 0.1.1"
 
-  name             = "POD1"
-  snmp_policy      = "SNMP1"
-  date_time_policy = "DATE1"
+  name                     = "POD1"
+  snmp_policy              = "SNMP1"
+  date_time_policy         = "DATE1"
+  management_access_policy = "MAP1"
 }
 ```
 
@@ -41,6 +42,7 @@ module "aci_fabric_pod_policy_group" {
 | <a name="input_name"></a> [name](#input\_name) | Pod policy group name. | `string` | n/a | yes |
 | <a name="input_snmp_policy"></a> [snmp\_policy](#input\_snmp\_policy) | SNMP policy name. | `string` | `""` | no |
 | <a name="input_date_time_policy"></a> [date\_time\_policy](#input\_date\_time\_policy) | Date time policy name. | `string` | `""` | no |
+| <a name="input_management_access_policy"></a> [management\_access\_policy](#input\_management\_access\_policy) | Management access policy name. | `string` | `""` | no |
 
 ## Outputs
 
@@ -54,6 +56,7 @@ module "aci_fabric_pod_policy_group" {
 | Name | Type |
 |------|------|
 | [aci_rest_managed.fabricPodPGrp](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
+| [aci_rest_managed.fabricRsCommPol](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 | [aci_rest_managed.fabricRsSnmpPol](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 | [aci_rest_managed.fabricRsTimePol](https://registry.terraform.io/providers/CiscoDevNet/aci/latest/docs/resources/rest_managed) | resource |
 <!-- END_TF_DOCS -->

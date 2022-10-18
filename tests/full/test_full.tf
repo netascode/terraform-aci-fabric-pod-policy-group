@@ -16,9 +16,10 @@ terraform {
 module "main" {
   source = "../.."
 
-  name             = "POD1"
-  snmp_policy      = "SNMP1"
-  date_time_policy = "DATE1"
+  name                     = "POD1"
+  snmp_policy              = "SNMP1"
+  date_time_policy         = "DATE1"
+  management_access_policy = "MAP1"
 }
 
 data "aci_rest_managed" "fabricPodPGrp" {
@@ -66,5 +67,21 @@ resource "test_assertions" "fabricRsTimePol" {
     description = "tnDatetimePolName"
     got         = data.aci_rest_managed.fabricRsTimePol.content.tnDatetimePolName
     want        = "DATE1"
+  }
+}
+
+data "aci_rest_managed" "fabricRsCommPol" {
+  dn = "${data.aci_rest_managed.fabricPodPGrp.id}/rsCommPol"
+
+  depends_on = [module.main]
+}
+
+resource "test_assertions" "fabricRsCommPol" {
+  component = "fabricRsCommPol"
+
+  equal "tnCommPolName" {
+    description = "tnCommPolName"
+    got         = data.aci_rest_managed.fabricRsCommPol.content.tnCommPolName
+    want        = "MAP1"
   }
 }
